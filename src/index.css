@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*default*/
+hr {
+  margin: 10px;
+}
+
+/* header */
+header {
+  width: 100%;
+  background-color: rgb(221, 189, 189);
+  padding: 10px;
+}
+header h1 {
+  text-align: center;
+}
+header span {
+  color: orange;
+}
+
+/* contenedor */
+.contenedor {
+  max-width: 1200px;
+  width: 100%;
+  margin: 10px auto;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 8px;
+}
+
+@media (min-width: 675px) {
+  .contenedor {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.formulario {
+  padding: 5px;
+  height: 180px;
+  background: grey;
+  border: 2px solid black;
+  border-radius: 5px;
+  transition: transform 0.3s;
+}
+.formulario:hover {
+  /*transform: scale(1.1);*/
+}
+.formulario-input label {
+  display: block;
+  margin-top: 10px;
+}
+.formulario-input input, textarea {
+  margin-top: 5px;
+  width: 100%;
+}
+
+/* resultado */
+.resultado {
+  border: 1px solid black;
+  height: 500px;
+  padding: 5px;
+  border-radius: 5px;
+  overflow-y: scroll;
+}
+
+
+/* tareas result final */
+.tareas p span {
+  font-weight: bold;
+  color: red;
+}
