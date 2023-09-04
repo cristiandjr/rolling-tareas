@@ -15,10 +15,24 @@ function App() {
   // error
   //const [error, setError] = useState(false)
 
+  // useEffect es una herramienta que te permite "escuchar" cambios en ciertas dependencias y ejecutar codigo en respuesta a esos cambios.
   // LC
   useEffect(() => {
     localStorage.setItem("tareasRC", JSON.stringify(tareas));
   }, [tareas]);
+
+  // cuando cambia el obj tarea (osea mi dependencia)
+  useEffect(() => {
+    // carga un obj vacio xq esta esperando q le enviemos una tarea
+    // comprueba si un arr esta vacio y si es mayor a 0 y si tiene algo devuelve TRUE
+    if(Object.keys(tarea).length > 0) {
+      setNombre(tarea.nombre)
+      setDescripcion(tarea.descripcion)
+    } else {
+      console.log('No nada en el arr de tarea')
+    }
+  }, [tarea])
+
 
   // generamos ID dinamico
   const generoIdDinamico = () => {
@@ -41,10 +55,8 @@ function App() {
       descripcion,
     };
 
-
     if (tarea.id) {
-      
-      // PUT, editamos la tarea por ID
+      // PATCH, editamos la tarea por ID
       objetoTareas.id = tarea.id;
 
       const tareasActualizadas = tareas.map((tareasState) => {
@@ -61,8 +73,22 @@ function App() {
       setTareas([...tareas, objetoTareas]);
     }
 
-
+    // reinicio form
+    setNombre("");
+    setDescripcion("");
   };
+
+
+  //
+  const eliminandoTarea = (id) => {
+    //console.log('desde app', id)
+
+    // retorna un objeto nuevo. Sacamos un elemento del arr diferente al id q paso como parametro a la func.
+    const tareaActualizados = tareas.filter((tareaState) => tareaState.id !== id);
+    setTareas(tareaActualizados);
+  }
+
+
 
   return (
     <>
@@ -93,16 +119,16 @@ function App() {
             />
           </div>
           <input
-              type="submit"
-              className="btn"
-              value={tarea.id ? "Editar " : "Agregar "}
-            />
+            type="submit"
+            className="btn"
+            value={tarea.id ? "Editar " : "Agregar "}
+          />
         </form>
         <section className="resultado">
-          <Resultado 
-            tareas={tareas} 
-            tarea={tarea} 
-            setTarea={setTarea} 
+          <Resultado
+            tareas={tareas}
+            setTarea={setTarea}
+            eliminandoTarea={eliminandoTarea}
           />
         </section>
       </main>
